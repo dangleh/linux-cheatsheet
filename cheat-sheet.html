@@ -1,0 +1,597 @@
+<h1 id="unixlinux-cheat-sheet-for-data-science">Unix/Linux Cheat Sheet
+for Data Science</h1>
+<h2 id="navigation-file-system">Navigation &amp; File System</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pwd</code></td>
+<td>Show current directory</td>
+<td><code>pwd</code></td>
+</tr>
+<tr>
+<td><code>cd</code></td>
+<td>Change directory</td>
+<td><code>cd data/</code> <code>cd ..</code> <code>cd ~</code></td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td>List files</td>
+<td><code>ls -la</code> <code>ls -lh</code></td>
+</tr>
+<tr>
+<td><code>tree</code></td>
+<td>Show directory structure</td>
+<td><code>tree .</code> <code>tree -L 2</code></td>
+</tr>
+<tr>
+<td><code>find</code></td>
+<td>Find files/directories</td>
+<td><code>find . -name "*.csv"</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="file-operations">File Operations</h2>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 24%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mkdir</code></td>
+<td>Create directory</td>
+<td><code>mkdir data</code> <code>mkdir -p data/raw</code></td>
+</tr>
+<tr>
+<td><code>touch</code></td>
+<td>Create empty file</td>
+<td><code>touch file.txt</code></td>
+</tr>
+<tr>
+<td><code>cp</code></td>
+<td>Copy files</td>
+<td><code>cp file.txt backup.txt</code>
+<code>cp -r dir/ backup/</code></td>
+</tr>
+<tr>
+<td><code>mv</code></td>
+<td>Move/rename</td>
+<td><code>mv old.txt new.txt</code></td>
+</tr>
+<tr>
+<td><code>rm</code></td>
+<td>Delete files</td>
+<td><code>rm file.txt</code> <code>rm -rf directory/</code> ⚠️</td>
+</tr>
+</tbody>
+</table>
+<h2 id="file-content-viewing">File Content Viewing</h2>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 32%" />
+<col style="width: 28%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cat</code></td>
+<td>Show entire file</td>
+<td><code>cat small_file.txt</code></td>
+<td>Small files only</td>
+</tr>
+<tr>
+<td><code>less</code></td>
+<td>View file page by page</td>
+<td><code>less large_file.csv</code></td>
+<td>Large files</td>
+</tr>
+<tr>
+<td><code>head</code></td>
+<td>Show first N lines</td>
+<td><code>head -10 data.csv</code></td>
+<td>Check file structure</td>
+</tr>
+<tr>
+<td><code>tail</code></td>
+<td>Show last N lines</td>
+<td><code>tail -20 log.txt</code></td>
+<td>Recent entries</td>
+</tr>
+<tr>
+<td><code>tail -f</code></td>
+<td>Follow file in real-time</td>
+<td><code>tail -f live.log</code></td>
+<td>Live monitoring</td>
+</tr>
+</tbody>
+</table>
+<h3 id="less-navigation-keys"><strong>less Navigation Keys</strong></h3>
+<ul>
+<li><code>Space</code> - Next page</li>
+<li><code>b</code> - Previous page</li>
+<li><code>/pattern</code> - Search forward</li>
+<li><code>q</code> - Quit</li>
+</ul>
+<h2 id="search-filter">Search &amp; Filter</h2>
+<h3 id="grep---pattern-matching"><strong>grep - Pattern
+Matching</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grep "pattern"</code></td>
+<td>Basic search</td>
+<td><code>grep "error" log.txt</code></td>
+</tr>
+<tr>
+<td><code>grep -i</code></td>
+<td>Case insensitive</td>
+<td><code>grep -i "ERROR" log.txt</code></td>
+</tr>
+<tr>
+<td><code>grep -c</code></td>
+<td>Count matches</td>
+<td><code>grep -c "GET" access.log</code></td>
+</tr>
+<tr>
+<td><code>grep -v</code></td>
+<td>Invert match (NOT)</td>
+<td><code>grep -v "INFO" log.txt</code></td>
+</tr>
+<tr>
+<td><code>grep -n</code></td>
+<td>Show line numbers</td>
+<td><code>grep -n "import" script.py</code></td>
+</tr>
+<tr>
+<td><code>grep -r</code></td>
+<td>Recursive search</td>
+<td><code>grep -r "TODO" src/</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="find---file-search"><strong>find - File Search</strong></h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">&quot;*.csv&quot;</span>              <span class="co"># Find CSV files</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-size</span> +100M                <span class="co"># Files larger than 100MB</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-mtime</span> <span class="at">-7</span>                  <span class="co"># Modified in last 7 days</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-type</span> f <span class="at">-name</span> <span class="st">&quot;*.py&quot;</span>       <span class="co"># Python files only</span></span></code></pre></div>
+<h2 id="text-processing-analysis">Text Processing &amp; Analysis</h2>
+<h3 id="basic-text-tools"><strong>Basic Text Tools</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wc -l</code></td>
+<td>Count lines</td>
+<td><code>wc -l dataset.csv</code></td>
+</tr>
+<tr>
+<td><code>sort</code></td>
+<td>Sort lines</td>
+<td><code>sort names.txt</code> <code>sort -n numbers.txt</code></td>
+</tr>
+<tr>
+<td><code>uniq</code></td>
+<td>Remove duplicates</td>
+<td><code>sort data.txt \| uniq</code></td>
+</tr>
+<tr>
+<td><code>cut</code></td>
+<td>Extract columns</td>
+<td><code>cut -d',' -f1,3 data.csv</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="awk---advanced-processing"><strong>awk - Advanced
+Processing</strong></h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print specific columns</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39;,&#39;</span> <span class="st">&#39;{print $1, $3}&#39;</span> data.csv</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate sum</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39;,&#39;</span> <span class="st">&#39;{sum += $3} END {print sum}&#39;</span> sales.csv</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39;,&#39;</span> <span class="st">&#39;{sum += $3; count++} END {print sum/count}&#39;</span> data.csv</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter and calculate</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39;,&#39;</span> <span class="st">&#39;$3 &gt; 100 {sum += $3} END {print sum}&#39;</span> sales.csv</span></code></pre></div>
+<h3 id="sed---stream-editor"><strong>sed - Stream Editor</strong></h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace text</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;s/old/new/g&#39;</span> file.txt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete lines</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;1d&#39;</span> file.txt                 <span class="co"># Delete first line (header)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;/pattern/d&#39;</span> file.txt         <span class="co"># Delete lines matching pattern</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract lines</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-n</span> <span class="st">&#39;10,20p&#39;</span> file.txt          <span class="co"># Print lines 10-20</span></span></code></pre></div>
+<h2 id="pipes-redirects">Pipes &amp; Redirects</h2>
+<h3 id="pipe-operators"><strong>Pipe Operators</strong></h3>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 42%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\|</code></td>
+<td>Send output to next command</td>
+<td><code>cat file.txt \| grep pattern</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>Redirect to file (overwrite)</td>
+<td><code>ls &gt; file_list.txt</code></td>
+</tr>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>Redirect to file (append)</td>
+<td><code>echo "new line" &gt;&gt; log.txt</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Input from file</td>
+<td><code>sort &lt; unsorted.txt</code></td>
+</tr>
+<tr>
+<td><code>2&gt;</code></td>
+<td>Redirect errors</td>
+<td><code>command 2&gt; errors.log</code></td>
+</tr>
+<tr>
+<td><code>2&gt;&amp;1</code></td>
+<td>Redirect errors to stdout</td>
+<td><code>command &gt; all.log 2&gt;&amp;1</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="common-pipe-patterns"><strong>Common Pipe Patterns</strong></h3>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count unique values in column</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39;,&#39;</span> <span class="at">-f2</span> data.csv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 10 most frequent values</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39;,&#39;</span> <span class="at">-f2</span> data.csv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-nr</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-10</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter and count</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;2024&quot;</span> sales.csv <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39;,&#39;</span> <span class="at">-f3</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{sum+=$1} END {print sum}&#39;</span></span></code></pre></div>
+<h2 id="json-processing-with-jq">JSON Processing with jq</h2>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 31%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jq .</code></td>
+<td>Pretty print JSON</td>
+<td><code>cat data.json \| jq .</code></td>
+</tr>
+<tr>
+<td><code>jq '.key'</code></td>
+<td>Extract field</td>
+<td><code>cat data.json \| jq '.name'</code></td>
+</tr>
+<tr>
+<td><code>jq '.[]'</code></td>
+<td>Extract array elements</td>
+<td><code>cat data.json \| jq '.users[]'</code></td>
+</tr>
+<tr>
+<td><code>jq 'select()'</code></td>
+<td>Filter objects</td>
+<td><code>jq '.[] \| select(.age &gt; 25)'</code></td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract specific fields</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> users.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.[] | {name: .name, age: .age}&#39;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> numbers.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;[.[].value] | add / length&#39;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter and transform</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> sales.json <span class="kw">|</span> <span class="ex">jq</span> <span class="st">&#39;.[] | select(.amount &gt; 1000) | .customer&#39;</span></span></code></pre></div>
+<h2 id="parallel-processing">Parallel Processing</h2>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Process files in parallel</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">&quot;*.csv&quot;</span> <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-P4</span> <span class="at">-I{}</span> wc <span class="at">-l</span> {}</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Parallel processing with custom command</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.txt <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-P8</span> <span class="at">-I{}</span> sh <span class="at">-c</span> <span class="st">&#39;echo &quot;Processing {}&quot;; grep pattern {}&#39;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimal parallelism</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">nproc</span>                             <span class="co"># Check CPU cores</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">xargs</span> <span class="at">-P</span><span class="va">$(</span><span class="fu">nproc</span><span class="va">)</span> ...             <span class="co"># Use all cores</span></span></code></pre></div>
+<h2 id="file-permissions">File Permissions</h2>
+<h3 id="permission-format-rwxrwxrwx"><strong>Permission Format:
+rwxrwxrwx</strong></h3>
+<ul>
+<li><strong>First 3</strong>: Owner permissions (user)</li>
+<li><strong>Middle 3</strong>: Group permissions</li>
+<li><strong>Last 3</strong>: Other permissions</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Number</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>r--</code></td>
+<td>4</td>
+<td>Read only</td>
+</tr>
+<tr>
+<td><code>-w-</code></td>
+<td>2</td>
+<td>Write only</td>
+</tr>
+<tr>
+<td><code>--x</code></td>
+<td>1</td>
+<td>Execute only</td>
+</tr>
+<tr>
+<td><code>rw-</code></td>
+<td>6</td>
+<td>Read + Write</td>
+</tr>
+<tr>
+<td><code>rwx</code></td>
+<td>7</td>
+<td>Full access</td>
+</tr>
+</tbody>
+</table>
+<h3 id="common-chmod-patterns"><strong>Common chmod
+Patterns</strong></h3>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 755 script.sh               <span class="co"># Executable for everyone</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 644 data.csv                <span class="co"># Read/write for owner, read for others</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 600 secrets.txt             <span class="co"># Owner only</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x script.sh                <span class="co"># Make executable</span></span></code></pre></div>
+<h2 id="process-management">Process Management</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ps aux</code></td>
+<td>List all processes</td>
+<td><code>ps aux \| grep python</code></td>
+</tr>
+<tr>
+<td><code>top</code></td>
+<td>Real-time process monitor</td>
+<td><code>top</code></td>
+</tr>
+<tr>
+<td><code>kill</code></td>
+<td>Terminate process</td>
+<td><code>kill 1234</code> <code>kill -9 1234</code></td>
+</tr>
+<tr>
+<td><code>nohup</code></td>
+<td>Run process in background</td>
+<td><code>nohup python train.py &amp;</code></td>
+</tr>
+<tr>
+<td><code>jobs</code></td>
+<td>List background jobs</td>
+<td><code>jobs</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="background-processing"><strong>Background
+Processing</strong></h3>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start in background</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> long_script.py <span class="kw">&amp;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Send to background</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Ctrl+Z</span>                            <span class="co"># Suspend</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">bg</span> %1                             <span class="co"># Resume in background</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Bring to foreground</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">fg</span> %1</span></code></pre></div>
+<h2 id="data-science-pipelines">Data Science Pipelines</h2>
+<h3 id="customer-analysis-pipeline"><strong>Customer Analysis
+Pipeline</strong></h3>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top customers by spending</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n</span> +2 customers.csv <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">&#39;,&#39;</span> <span class="at">-k11</span> <span class="at">-nr</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-10</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Revenue by category</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n</span> +2 sales.csv <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39;,&#39;</span> <span class="at">-f5,8</span> <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39;,&#39;</span> <span class="st">&#39;{revenue[$1] += $2} END {for(cat in revenue) print cat&quot;: $&quot;revenue[cat]}&#39;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Customer segmentation</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39;,&#39;</span> <span class="st">&#39;NR&gt;1 {if($11&gt;1000) print $1&quot;,high&quot;; else print $1&quot;,low&quot;}&#39;</span> customers.csv</span></code></pre></div>
+<h3 id="log-analysis-pipeline"><strong>Log Analysis
+Pipeline</strong></h3>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Error analysis</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ERROR app.log <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39; &#39;</span> <span class="at">-f1-2</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Top IP addresses</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39; &#39;</span> <span class="at">-f1</span> access.log <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-nr</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-10</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Hourly traffic pattern</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39; &#39;</span> <span class="at">-f4</span> access.log <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39;:&#39;</span> <span class="at">-f2</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code></pre></div>
+<h3 id="performance-monitoring"><strong>Performance
+Monitoring</strong></h3>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monitor model training</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-f</span> training.log <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">&quot;(accuracy|loss)&quot;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># System resource usage</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">top</span> <span class="at">-p</span> <span class="va">$(</span><span class="ex">pgrep</span> python<span class="va">)</span>            <span class="co"># Monitor Python processes</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Disk usage by directory</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-h</span> <span class="at">--max-depth</span><span class="op">=</span>1 <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-hr</span></span></code></pre></div>
+<h2 id="emergency-commands">Emergency Commands</h2>
+<h3 id="when-things-go-wrong"><strong>When Things Go Wrong</strong></h3>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exit vim</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">:q!</span>                               <span class="co"># Quit without saving</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop runaway process</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Ctrl+C</span>                            <span class="co"># Interrupt current command</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">kill</span> <span class="at">-9</span> <span class="va">$(</span><span class="ex">pgrep</span> process_name<span class="va">)</span>     <span class="co"># Force kill by name</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix permissions</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 644 <span class="pp">*</span>.txt                   <span class="co"># Fix file permissions</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 755 <span class="pp">*</span>.sh                    <span class="co"># Fix script permissions</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Recover accidentally deleted files</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ~/.local/share/Trash/          <span class="co"># Check trash (Ubuntu)</span></span></code></pre></div>
+<h3 id="common-mistakes-fixes"><strong>Common Mistakes &amp;
+Fixes</strong></h3>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forgot sudo</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> !!                           <span class="co"># Repeat last command with sudo</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrong directory</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="at">-</span>                              <span class="co"># Go back to previous directory</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Command not found</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> command_name                <span class="co"># Check if installed</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$PATH</span>                        <span class="co"># Check PATH variable</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># File not found</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span>                            <span class="co"># Check current directory</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">&quot;filename&quot;</span>           <span class="co"># Search for file</span></span></code></pre></div>
+<h2 id="system-information">System Information</h2>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># System info</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">uname</span> <span class="at">-a</span>                          <span class="co"># System information</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span>                             <span class="co"># Disk usage</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">free</span> <span class="at">-h</span>                           <span class="co"># Memory usage</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nproc</span>                             <span class="co"># Number of CPU cores</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Environment</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">env</span>                               <span class="co"># Environment variables</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$PATH</span>                        <span class="co"># PATH variable</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span>                            <span class="co"># Current user</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>                               <span class="co"># Current directory</span></span></code></pre></div>
+<h2 id="quick-examples-for-common-tasks">Quick Examples for Common
+Tasks</h2>
+<h3 id="data-exploration"><strong>Data Exploration</strong></h3>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick dataset overview</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> data.csv <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;...&quot;</span> <span class="kw">&amp;&amp;</span> <span class="fu">tail</span> <span class="at">-5</span> data.csv</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> <span class="pp">*</span>.csv                       <span class="co"># Count rows in all CSV files</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39;,&#39;</span> <span class="at">-f1</span> data.csv <span class="kw">|</span> <span class="fu">head</span>    <span class="co"># Preview first column</span></span></code></pre></div>
+<h3 id="data-cleaning"><strong>Data Cleaning</strong></h3>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove empty lines</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-v</span> <span class="st">&quot;^$&quot;</span> data.txt <span class="op">&gt;</span> cleaned.txt</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove duplicates</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> data.txt <span class="kw">|</span> <span class="fu">uniq</span> <span class="op">&gt;</span> unique.txt</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace missing values</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;s/,,/,NULL,/g&#39;</span> data.csv <span class="op">&gt;</span> cleaned.csv</span></code></pre></div>
+<h3 id="quick-statistics"><strong>Quick Statistics</strong></h3>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count unique values</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39;,&#39;</span> <span class="at">-f2</span> data.csv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find min/max</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39;,&#39;</span> <span class="at">-f3</span> data.csv <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-1</span>    <span class="co"># Min</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39;,&#39;</span> <span class="at">-f3</span> data.csv <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-1</span>    <span class="co"># Max</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple sum</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39;,&#39;</span> <span class="at">-f3</span> data.csv <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{sum+=$1} END {print sum}&#39;</span></span></code></pre></div>
+<hr />
+<h2 id="pro-tips">Pro Tips</h2>
+<ol type="1">
+<li><strong>Use Tab completion</strong> - Type first few letters, press
+Tab</li>
+<li><strong>Use history</strong> - Press ↑ to see previous commands</li>
+<li><strong>Use aliases</strong> - <code>alias ll='ls -la'</code> for
+shortcuts</li>
+<li><strong>Read man pages</strong> - <code>man command</code> for
+detailed help</li>
+</ol>
+<h2 id="safety-rules">Safety Rules</h2>
+<ol type="1">
+<li><strong>⚠️ Never <code>rm -rf /</code></strong> - Will delete
+everything!</li>
+<li><strong>Always test on small data first</strong> - Especially with
+<code>sed</code>, <code>awk</code></li>
+<li><strong>Use <code>ls</code> before <code>rm</code></strong> -
+Double-check what you’re deleting</li>
+<li><strong>Backup important files</strong> -
+<code>cp important.csv important.backup</code></li>
+<li><strong>Use version control</strong> - <code>git</code> for tracking
+changes</li>
+</ol>
+<hr />
+<p><em>Need help? Remember: <code>man command_name</code> is your
+friend!</em></p>
